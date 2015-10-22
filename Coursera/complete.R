@@ -12,16 +12,16 @@ complete <- function(directory, id = 1:332) {
   #formatiranje ID-ja - da 1 postane 001.csv, a 10 da postane 010.csv
   idF <- formatC(i,width=3,format="d",flag="0")
   
-  print(paste(directory, "/", idF, ".csv", sep=""))
+  #  print(paste(directory, "/", idF, ".csv", sep=""))
   data.temp <- read.csv(file = paste(directory, "/", idF, ".csv", sep=""))
   
   notNA.sulfate <- !is.na(data.temp$sulfate)
   notNA.nitrate <- !is.na(data.temp$nitrate)
   nobs <- sum(notNA.sulfate & notNA.nitrate)
-  print(nobs)
+  #  print(nobs)
   
   df.temp <- data.frame(i, nobs)
-  print(df.temp)
+  #  print(df.temp)
   
   dat <- rbind(dat, df.temp)
   
@@ -37,14 +37,3 @@ complete <- function(directory, id = 1:332) {
   dat
   
 }
-
-data.temp <- read.csv(file = "specdata/001.csv")
-
-id <- 1
-
-notNA.sulfate <- !is.na(data.temp$sulfate)
-notNA.nitrate <- !is.na(data.temp$nitrate)
-nobs <- sum(isNAsulfate & isNAnitrate)
-
-df.temp <- data.frame(id, no.complete)
-
