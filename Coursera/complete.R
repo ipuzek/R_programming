@@ -5,6 +5,11 @@ complete <- function(directory, id = 1:332) {
   ## 'id' is an integer vector indicating the monitor ID numbers
   ## to be used
   
+  #petlja: for (i in id) {
+  
+  #formatiranje ID-ja - da 1 postane 001.csv, a 10 da postane 010.csv
+  idF <- formatC(i,width=3,format="d",flag="0")
+  
   ## Return a data frame of the form:
   ## id nobs
   ## 1  117
