@@ -1,32 +1,39 @@
 corr <- function(directory, threshold = 0) {
 
   corVectorFinal <- c()
-  id <- 1:332
+  setwd("~/R/assignment_1")
   
-  for (i in id) {
     
-    #formatiranje ID-ja (tj i-ja) - da 1 postane 001.csv, a 10 da postane 010.csv
-    idF <- formatC(i, width=3, format="d", flag="0")
+  for (i in 1:332) {
     
-    #  print(paste(directory, "/", idF, ".csv", sep=""))
-    data.eval <- read.csv(file = paste(directory, "/", idF, ".csv", sep=""))
+    print(list.files(directory)[i])
+    setwd(directory)
+    data.eval <- read.csv(file = list.files()[i])
     notNA.sulfate <- !is.na(data.eval$sulfate)
     notNA.nitrate <- !is.na(data.eval$nitrate)
     nobs <- sum(notNA.sulfate & notNA.nitrate)
   
+    
   if (nobs > threshold) {
     corVector <- cor(data.eval$nitrate, data.eval$sulfate, use="complete.obs")    
     corVectorFinal <- c(corVectorFinal,corVector)
     
-    print(corVector)
+    # print(corVector)
     
-    }     
+    }    
+  
+    setwd("~/R/assignment_1")
+    
   }
 
-  # print(corVectorFinal)
-  print(head(corVectorFinal))
-  print(class(corVectorFinal))
-  summary(corVectorFinal)
+  if (is.null(corVectorFinal)) {
+    corVectorFinal <- 0
+  }
+  
+  print(corVectorFinal)
+  # print(head(corVectorFinal))
+  # print(class(corVectorFinal))
+  # summary(corVectorFinal)
   
 }
 
@@ -59,4 +66,6 @@ setwd("~/R/assignment_1")
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ## -0.2110 -0.0500  0.0946  0.1250  0.2680  0.7630
 
-list.files("specdata")
+
+print(list.files("specdata")[1], full.names = TRUE)
+is.null(cr)
