@@ -20,7 +20,8 @@ complete <- function(directory, id = 1:332) {
   nobs <- sum(notNA.sulfate & notNA.nitrate)
   print(nobs)
   
-  df.temp <- data.frame(id, nobs)
+  df.temp <- data.frame(i, nobs)
+  print(df.temp)
   
   dat <- rbind(dat, df.temp)
   
