@@ -17,11 +17,12 @@ complete <- function(directory, id = 1:332) {
   
   notNA.sulfate <- !is.na(data.temp$sulfate)
   notNA.nitrate <- !is.na(data.temp$nitrate)
-  nobs <- sum(isNAsulfate & isNAnitrate)
+  nobs <- sum(notNA.sulfate & notNA.nitrate)
+  print(nobs)
   
   df.temp <- data.frame(id, nobs)
   
-  rbind(dat, df.temp)
+  dat <- rbind(dat, df.temp)
   
   ## Return a data frame of the form:
   ## id nobs
@@ -32,7 +33,7 @@ complete <- function(directory, id = 1:332) {
   ## number of COMPLETE CASES
   }
   
-  df.temp
+  dat
   
 }
 
