@@ -44,10 +44,24 @@ rankhospital <- function(state, outcome, num) {
   ods.ordered <- outcome.data.state[order(outcome.data.state[[outcome]], 
                                           outcome.data.state$Hospital.Name),]
   
+  if (num=="best"){
+    num <- 1
+  } else if (num=="worst") {
+    num <- length(!is.na(outcome.data.state[[outcome]]))
+  } else {
+    num <- num
+  }
+  
   ods.ordered$Hospital.Name[num]
   
   
 }
+
+
+### malo debugiranja
+
+#length(!is.na(outcome.data.state[["heart attack"]]))
+#outcome.data.state[["heart attack"]]
 
 
 
@@ -57,10 +71,5 @@ rankhospital <- function(state, outcome, num) {
 # str(outcome.data)
 
 
-
-
-
 # BITNO! newdata <- mtcars[order(mpg, -cyl),]
-
-# class(ods.ordered)
 
