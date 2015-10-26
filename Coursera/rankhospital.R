@@ -1,4 +1,3 @@
-rm(outcome.data.state)
 
 ### ASSIGNMENT 3 ### part 2
 
@@ -78,26 +77,3 @@ rankhospital <- function(state, outcome, num) {
 
 
 # BITNO! newdata <- mtcars[order(mpg, -cyl),]
-
-
-
-outcome.data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
-
-outcome.data[,11] <- as.numeric(outcome.data[,11])
-outcome.data[,17] <- as.numeric(outcome.data[,17])
-outcome.data[,23] <- as.numeric(outcome.data[,23])
-
-#rename varijabli
-names(outcome.data)[11] <- "heart attack"
-names(outcome.data)[17] <- "heart failure"
-names(outcome.data)[23] <- "pneumonia"
-
-
-#subsetiram prema stateu
-outcome.data.state <- subset(outcome.data, subset = outcome.data$State=="MD")  
-
-#sortiram prema outcomeu pa prema imenu
-ods.ordered.MD <- outcome.data.state[order(outcome.data.state[["heart attack"]], 
-                                        outcome.data.state$Hospital.Name),]
-
-sum(!is.na(ods.ordered.MD[["heart attack"]]))
