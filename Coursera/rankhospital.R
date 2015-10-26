@@ -1,7 +1,8 @@
+rm(outcome.data.state)
 
 ### ASSIGNMENT 3 ### part 2
 
-setwd("~/R/assignment_3/")
+# setwd("~/R/assignment_3/")
 
 rankhospital <- function(state, outcome, num) {
   
@@ -44,10 +45,15 @@ rankhospital <- function(state, outcome, num) {
   ods.ordered <- outcome.data.state[order(outcome.data.state[[outcome]], 
                                           outcome.data.state$Hospital.Name),]
   
+  #debug
+  # print(class(ods.ordered$`heart attack`))
+  
   if (num=="best"){
     num <- 1
   } else if (num=="worst") {
-    num <- length(!is.na(outcome.data.state[[outcome]]))
+    num <- sum(!is.na(ods.ordered[[outcome]]))
+    # print(ods.ordered[[outcome]])
+    # print(summary(ods.ordered[[outcome]]))
   } else {
     num <- num
   }
@@ -73,3 +79,25 @@ rankhospital <- function(state, outcome, num) {
 
 # BITNO! newdata <- mtcars[order(mpg, -cyl),]
 
+
+
+outcome.data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+
+outcome.data[,11] <- as.numeric(outcome.data[,11])
+outcome.data[,17] <- as.numeric(outcome.data[,17])
+outcome.data[,23] <- as.numeric(outcome.data[,23])
+
+#rename varijabli
+names(outcome.data)[11] <- "heart attack"
+names(outcome.data)[17] <- "heart failure"
+names(outcome.data)[23] <- "pneumonia"
+
+
+#subsetiram prema stateu
+outcome.data.state <- subset(outcome.data, subset = outcome.data$State=="MD")  
+
+#sortiram prema outcomeu pa prema imenu
+ods.ordered.MD <- outcome.data.state[order(outcome.data.state[["heart attack"]], 
+                                        outcome.data.state$Hospital.Name),]
+
+sum(!is.na(ods.ordered.MD[["heart attack"]]))
