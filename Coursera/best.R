@@ -9,6 +9,12 @@ best <- function(state, outcome) {
   
   outcome.data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
   
+  #koje varijable? 30 day mortality
+  
+  #rename varijabli#
+  names(outcome.data)[11] <- "heart attack"
+  names(outcome.data)[17] <- "heart failure"
+  names(outcome.data)[23] <- "pneumonia"
   
   ## Check that state and outcome are valid
   
@@ -18,4 +24,5 @@ best <- function(state, outcome) {
 
 
 # swirl - looking at data
-str(plants)
+names(outcome.data)
+str(outcome.data)
