@@ -9,7 +9,6 @@ best <- function(state, outcome) {
   
   outcome.data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
   
-  #koje varijable? 30 day mortality
   
   #rename varijabli
   names(outcome.data)[11] <- "heart attack"
@@ -35,28 +34,30 @@ best <- function(state, outcome) {
   ## Return hospital name in that state with lowest 30-day death
   ## rate
   
+  #subsetiram prema stateu
+  outcome.data.state <- subset(outcome.data, subset = outcome.data$State==state)  
   
+  #sortiram prema outcomeu pa prema imenu
+  ods.ordered <- outcome.data.state[order(outcome.data.state[[outcome]], 
+                                          outcome.data.state$Hospital.Name),]
+  
+  ods.ordered$Hospital.Name[1]
+
   
 }
 
 
-!is.element("AL", unique(outcome.data$State))
-min(outcome.data$"heart attack")
-
-
-
-outcome.data.state <- subset(outcome.data, subset = outcome.data$State=="AK")
 
 
 # swirl - looking at data
-names(outcome.data)
-str(outcome.data)
+# names(outcome.data)
+# str(outcome.data)
 
 
-ods.ordered <- outcome.data.state[order(outcome.data.state$'heart attack', outcome.data.state$Hospital.Name),]
 
 
-# BTINO! newdata <- mtcars[order(mpg, -cyl),]
 
-class(ods.ordered)
+# BITNO! newdata <- mtcars[order(mpg, -cyl),]
+
+# class(ods.ordered)
 
