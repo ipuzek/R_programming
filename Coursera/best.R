@@ -9,6 +9,9 @@ best <- function(state, outcome) {
   
   outcome.data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
   
+  outcome.data[,11] <- as.numeric(outcome.data[,11])
+  outcome.data[,17] <- as.numeric(outcome.data[,17])
+  outcome.data[,23] <- as.numeric(outcome.data[,23])
   
   #rename varijabli
   names(outcome.data)[11] <- "heart attack"
