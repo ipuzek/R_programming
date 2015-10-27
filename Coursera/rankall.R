@@ -15,11 +15,12 @@ names(dat)[17] <- "heartfailure"
 names(dat)[23] <- "pneumonia"
 
 
-dat.rank <- aggregate(dat$heartattack ~ dat$State, dat, rank, na.action = na.omit, simplify = TRUE)
+dat.HA <- aggregate(dat$heartattack ~ dat$State, dat, rank, na.action = na.omit, simplify = TRUE)
 
-names(dat.rank)[2] <- "HAlist"
+names(dat.HA)[1] <- "HAstates"
+names(dat.HA)[2] <- "HAlist"
 
-ke <- dat.rank$HAlist
+ke <- dat.HA$HAlist
 attributes(ke) <- NULL
 
 znj <- data.frame(t(sapply(ke,c)))
@@ -34,13 +35,12 @@ length(vec) <- 227
 empty <- cbind(empty,vec)
 }
 
-full <- empty[,-1]
+full <- as.data.frame(empty[,-1])
+names(full) <- dat.HA$HAstates
 
-summary(empty)
+full$AK == 1
+class(dat$Hospital.Name[full$AK == 1])
 
-attach(dat.rank)
-mylist <- as.data.frame(dat$`heart attack`)
-head(mylist)
 
 rankall <- function(outcome, num = "best") {
   
