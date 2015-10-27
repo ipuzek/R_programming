@@ -1,5 +1,9 @@
 # setwd("R/assignment_3/")
 
+
+### PROVJERI MISSINGE I THREAD NA FORUMU ZA ZADNJI SUBMIT!
+
+
 rankall <- function(outcome, num = "best") {
   
   ## Read outcome data
