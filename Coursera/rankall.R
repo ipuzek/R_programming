@@ -1,3 +1,47 @@
+setwd("R/assignment_3/")
+
+dat <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+
+
+dat[,11] <- as.numeric(dat[,11])
+dat[,17] <- as.numeric(dat[,17])
+dat[,23] <- as.numeric(dat[,23])
+
+dat$State <- as.factor(dat$State)
+
+#rename varijabli
+names(dat)[11] <- "heartattack"
+names(dat)[17] <- "heartfailure"
+names(dat)[23] <- "pneumonia"
+
+
+dat.rank <- aggregate(dat$heartattack ~ dat$State, dat, rank, na.action = na.omit, simplify = TRUE)
+
+names(dat.rank)[2] <- "HAlist"
+
+ke <- dat.rank$HAlist
+attributes(ke) <- NULL
+
+znj <- data.frame(t(sapply(ke,c)))
+#str(znj)
+
+empty <- matrix(nrow=227, ncol=1)
+
+for (i in 1:54) {
+vec <- unlist(znj[,i], use.names=FALSE)
+length(vec) <- 227
+
+empty <- cbind(empty,vec)
+}
+
+full <- empty[,-1]
+
+summary(empty)
+
+attach(dat.rank)
+mylist <- as.data.frame(dat$`heart attack`)
+head(mylist)
+
 rankall <- function(outcome, num = "best") {
   
   ## Read outcome data
@@ -15,3 +59,6 @@ rankall <- function(outcome, num = "best") {
   
   
 }
+
+## S3 method for class 'data.frame'
+aggregate(x, by, FUN, ..., simplify = TRUE)
