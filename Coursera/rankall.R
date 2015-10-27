@@ -19,16 +19,18 @@ names(dat)[23] <- "pneumonia"
 statez <- unique(as.character(dat$State))
 
 for (i in statez) {
-  assign(i, subset.data.frame(dat, State == i, select = c(Hospital.Name, heartattack, heartfailure, pneumonia)))
+  assign(paste("dat",i,sep=""), subset.data.frame(dat, State == i, select = c(Hospital.Name, heartattack, heartfailure, pneumonia)))
 }
 
+ls()
+
+#sortiram prema outcomeu pa prema imenu
+
+NY.ord <- NY[order(NY$heartattack, NY$Hospital.Name),]
 
 
-for(i in 1:6) { #-- Create objects  'r.1', 'r.2', ... 'r.6' --
-  nam <- paste("r", i, sep = ".")
-  assign(paste("dat", i, sep = "."), subset.data.frame(dat, State == i, select = c(Hospital.Name, heartattack, heartfailure, pneumonia))
-}
 
+str(NY)
 
 empty <- matrix(nrow=227, ncol=1)
 
