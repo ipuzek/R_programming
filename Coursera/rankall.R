@@ -14,17 +14,21 @@ names(dat)[11] <- "heartattack"
 names(dat)[17] <- "heartfailure"
 names(dat)[23] <- "pneumonia"
 
+### dataframeovi za svaku državu
 
-dat.HA <- aggregate(dat$heartattack ~ dat$State, dat, rank, na.action = na.omit, simplify = TRUE)
+statez <- unique(as.character(dat$State))
 
-names(dat.HA)[1] <- "HAstates"
-names(dat.HA)[2] <- "HAlist"
+for (i in statez) {
+  assign(i, subset.data.frame(dat, State == i, select = c(Hospital.Name, heartattack, heartfailure, pneumonia)))
+}
 
-ke <- dat.HA$HAlist
-attributes(ke) <- NULL
 
-znj <- data.frame(t(sapply(ke,c)))
-#str(znj)
+
+for(i in 1:6) { #-- Create objects  'r.1', 'r.2', ... 'r.6' --
+  nam <- paste("r", i, sep = ".")
+  assign(paste("dat", i, sep = "."), subset.data.frame(dat, State == i, select = c(Hospital.Name, heartattack, heartfailure, pneumonia))
+}
+
 
 empty <- matrix(nrow=227, ncol=1)
 
@@ -36,10 +40,9 @@ empty <- cbind(empty,vec)
 }
 
 full <- as.data.frame(empty[,-1])
-names(full) <- dat.HA$HAstates
 
-full$AK == 1
-class(dat$Hospital.Name[full$AK == 1])
+
+)
 
 
 rankall <- function(outcome, num = "best") {
