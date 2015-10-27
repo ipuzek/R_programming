@@ -1,4 +1,4 @@
-setwd("R/assignment_3/")
+# setwd("R/assignment_3/")
 
 rankall <- function(outcome, num = "best") {
   
@@ -26,6 +26,7 @@ rankall <- function(outcome, num = "best") {
   
   
   #formatiram number
+  numworst <- 0
   if (num=="best"){
     num <- 1
   } else if (num=="worst") {
@@ -53,7 +54,7 @@ rankall <- function(outcome, num = "best") {
   ## For each state, find the hospital of the given rank
 
   if (numworst==1){
-  master.ord <- master.subs[-order(master.subs[[outcome]], master.subs$Hospital.Name),]  
+  master.ord <- master.subs[order(-master.subs[[outcome]], master.subs$Hospital.Name),]  
   } else {
   master.ord <- master.subs[order(master.subs[[outcome]], master.subs$Hospital.Name),]
   }
@@ -68,6 +69,11 @@ rankall <- function(outcome, num = "best") {
   lap <- lapply(master.ord.split, function(x) x[num,1])
   lap.df <- as.data.frame(unlist(lap))
   
+  #debug
+  #head(lap.df)
+  #class(lap.df)
+  #str(lap.df)
+  
   #zadnji tweak konačnog frejma
   
   lap.df$state <- rownames(lap.df)
@@ -75,21 +81,3 @@ rankall <- function(outcome, num = "best") {
   
   print(lap.df)
 }
-
-
-
-
-
-#sortiram prema outcomeu pa prema imenu ## u funkciji zamijeniti outcome!!
-
-
-
-#master.rank <- aggregate(master$HA ~ master$State, master, rank, na.action = na.omit, simplify = TRUE)
-
-
-
-
-
-
-## S3 method for class 'data.frame'
-aggregate(x, by, FUN, ..., simplify = TRUE)
